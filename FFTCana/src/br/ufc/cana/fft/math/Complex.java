@@ -236,7 +236,7 @@ public class Complex extends Object {
 	public static ArrayList<Complex> doubleToComplex(int[] array , int limiteMax) {
 		ArrayList<Complex> res = new ArrayList<Complex>();	   
 		
-		for (int i = 0; i < array.length+limiteMax; i++) {
+		for (int i = 0; i < limiteMax; i++) {
 			Complex cplx;
 			if(i<array.length)
 				cplx = new Complex(array[i],0);
