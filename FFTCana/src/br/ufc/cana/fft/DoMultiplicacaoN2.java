@@ -1,21 +1,33 @@
 package br.ufc.cana.fft;
-
+/**
+ * Multiplicação de polinômios O(n^2)
+ * 
+ * @author Paulo
+ * @author Fabiano
+ */
 public class DoMultiplicacaoN2 {
 
+	/**
+	 * Multiplica o polinômio A pelo polinômio B
+	 * C = A*B
+	 * 
+	 * @param A : vetor com os coeficientes do primeiro polinômio
+	 * @param B : vetor com os coeficientes do segundo polinômio
+	 * @return C : vetor com os coeficientes do polinômio C = A*B
+	 */
 	public static int[] multiplicaN2(int[] A, int[] B) {
-		int[] V = new int[A.length + B.length - 1];
+		int[] C = new int[A.length + B.length - 1];
 		for (int i = 0; i < A.length; i++) {
 			for (int j = 0; j < B.length; j++) {
-				V[i + j] = V[i + j] + A[i] * B[j];
+				C[i + j] = C[i + j] + A[i] * B[j];
 			}
 		}
-		return V;
+		return C;
 	}
 
 	public static void main(String[] args) {
-		int[] eqcA = { 5, -2 }; // 1 + 2x
-		int[] eqcB = { 5, 2 }; // 3 + 5x
-
+		int[] eqcA = { 5, -2 };
+		int[] eqcB = { 5, 2 };
 		int[] eqcC = multiplicaN2(eqcA, eqcB);
 
 		// Imprime resultado
