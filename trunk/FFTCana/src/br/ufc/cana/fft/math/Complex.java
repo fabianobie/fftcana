@@ -247,6 +247,13 @@ public class Complex extends Object {
 		}
 	    return res;
 	}
+	
+	public static void printComplex(ArrayList<Complex> array) {
+		System.out.println("\n=================================================================");   
+		for (Complex complex : array) {
+			System.out.print(complex+"\t");
+		}
+	}
 
 	
 	
