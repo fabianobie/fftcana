@@ -1,5 +1,7 @@
 package br.ufc.cana.fft.math;
 
+import java.util.ArrayList;
+
 /**
     Complex implements a complex number and defines complex
     arithmetic and mathematical functions
@@ -210,7 +212,7 @@ public class Complex extends Object {
     }
     
     /**
-    Complex multiplication (doesn't change this Complex number).
+    Potencia (doesn't change this Complex number).
     @param w is the number to multiply by.
     @return z*w where z is this Complex number.
      */
@@ -224,6 +226,30 @@ public class Complex extends Object {
 			}
 	    return res;
 	}
+	
+	/**
+	 * 
+	 * @param array
+	 * @param limiteMax
+	 * @return
+	 */
+	public static ArrayList<Complex> doubleToComplex(int[] array , int limiteMax) {
+		ArrayList<Complex> res = new ArrayList<Complex>();	   
+		
+		for (int i = 0; i < array.length+limiteMax; i++) {
+			Complex cplx;
+			if(i<array.length)
+				cplx = new Complex(array[i],0);
+			else
+				cplx = new Complex(0,0);
+			res.add(cplx);
+			
+		}
+	    return res;
+	}
+
+	
+	
     /**
         String representation of this Complex number.
         @return x+i*y, x-i*y, x, or i*y as appropriate.
