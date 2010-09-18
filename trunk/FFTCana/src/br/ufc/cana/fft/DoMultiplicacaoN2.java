@@ -26,13 +26,19 @@ public class DoMultiplicacaoN2 {
 	}
 
 	public static void main(String[] args) {
-		int[] eqcA = { 5, -2 };
-		int[] eqcB = { 5, 2 };
+		int[] eqcA = { 3, 1, 3, 1, 2, 3, 4,-1};
+		int[] eqcB = { 1, 4, -2, 1, -2, -1, -3, 4};
 		int[] eqcC = multiplicaN2(eqcA, eqcB);
 
 		// Imprime resultado
 		System.out.println("\nImprime resultado");
 		String sinal;
+		for (int i = 0; i < eqcC.length; i++) {
+			sinal = (eqcC[i] >= 0) ? "+" : "";
+			System.out.print(sinal + eqcC[i] + "x^" + i + " ");
+		}
+		
+		eqcC = DoFFT.executeFFT(eqcA, eqcB);
 		for (int i = 0; i < eqcC.length; i++) {
 			sinal = (eqcC[i] >= 0) ? "+" : "";
 			System.out.print(sinal + eqcC[i] + "x^" + i + " ");
