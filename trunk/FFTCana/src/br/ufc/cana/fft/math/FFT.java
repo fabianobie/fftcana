@@ -4,6 +4,17 @@ import java.util.ArrayList;
 
 public class FFT {
 
+	public ArrayList<Complex> multiplicacao(ArrayList<Complex> A, ArrayList<Complex> B) {
+		
+		ArrayList<Complex> C = new ArrayList<Complex>();
+		
+		for (int i = 0; i < A.size(); i++) {
+			C.add(B.get(i).times(A.get(i)));
+		}
+		
+		return C;
+	}
+	
 	private ArrayList<Complex> impar(ArrayList<Complex> V){
 		
 		ArrayList<Complex> imparList = new ArrayList<Complex>();
@@ -31,6 +42,4 @@ public class FFT {
 		}
 		return parList;
 	}
-	
-	
 }
