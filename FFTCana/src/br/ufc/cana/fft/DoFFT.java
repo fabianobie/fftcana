@@ -1,6 +1,9 @@
 package br.ufc.cana.fft;
 
+import java.util.ArrayList;
+
 import br.ufc.cana.fft.math.Complex;
+import br.ufc.cana.fft.math.FFT;
 
 public class DoFFT {
 
@@ -8,32 +11,42 @@ public class DoFFT {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		int[] A = {3,2,-1,4,0,0,0};
-		int[] B = {-2,-1,2,7,0,0,0};
-		
-		
-//		1. Pick m points x_0, x_1, ..., x_{m-1} according to a secret formula.
-		//w =  + i*sin(2*pi/m)
 
-		int m=8;
-		Complex w =  new Complex(Math.cos(2*Math.PI/m), Math.sin(2*Math.PI/m));
+		//Entradas
+		int[] eqcA = { 1, 2 }; // 1 + 2x
+		int[] eqcB = { 3, 5 }; // 3 + 5x
+		int[] eqcC;
+
+		//Inicializado variáveis
+		ArrayList<Complex> A = new ArrayList<Complex>();
+		ArrayList<Complex> B = new ArrayList<Complex>();
+		ArrayList<Complex> cmplxA = new ArrayList<Complex>();
+		ArrayList<Complex> cmplxB = new ArrayList<Complex>();
+		ArrayList<Complex> cmplxC;
+
+		//Duplicando o limite de grau
+		//Gerando numeros complexos
+		A = Complex.doubleToComplex(eqcA, eqcA.length * 2 - 1);
+		B = Complex.doubleToComplex(eqcB, eqcB.length * 2 - 1);
 		
+		//Fast Fourier Transform
+		FFT fft = new FFT();
 		
-//		2. Evaluate A at each of the points: A(x_0),..., A(x_{m-1}).
+		//Avaliar
+		cmplxA = fft.FFTrecursivo(A, false);
+		cmplxB = fft.FFTrecursivo(B, false);
 		
-		
-//		3. Same for B.
-		
-		
-//		4. Now compute C(x_0),..., C(x_{m-1}), where C is A(x)*B(x)
-		
-		
-//		5. Interpolate to get the coefficients of C.
- 
-		
-		
-		
+		//Multiplicar
+		cmplxC = fft.multiplicacao(cmplxA, cmplxB);
+
+		//Interpolar
+		eqcC = fft.FFTinverso(cmplxC);
+
+		//Imprime resultado
+		for (int i = 0; i < eqcC.length; i++) {
+			System.out.print(eqcC[i] + ",");
+		}
+
 	}
 
 }
