@@ -21,12 +21,12 @@ public class FFT {
 	private ArrayList<Complex> par(ArrayList<Complex> V){
 		
 		ArrayList<Complex> parList = new ArrayList<Complex>();
-		int evenTamanho = 0 ;
+		int tamPar = 0 ;
 		int n =  V.size();
 		
-		evenTamanho = ((n % 2) == 1)?(n+1)/2 : n/2;
+		tamPar = ((n % 2) == 1)?(n+1)/2 : n/2;
 		
-		for (int i = 0; i < evenTamanho; i++) {
+		for (int i = 0; i < tamPar; i++) {
 			parList.add(V.get(2*i));
 		}
 		return parList;
