@@ -29,20 +29,34 @@ public class DoFFT {
 		A = Complex.doubleToComplex(eqcA, eqcA.length * 2 - 1);
 		B = Complex.doubleToComplex(eqcB, eqcB.length * 2 - 1);
 		
+		System.out.println("\nArrays de Entrada");
+		Complex.printComplex(A);
+		Complex.printComplex(B);
+		
 		//Fast Fourier Transform
 		FFT fft = new FFT();
 		
 		//Avaliar
+		System.out.println("\nAvaliar");
 		cmplxA = fft.FFTrecursivo(A, false);
 		cmplxB = fft.FFTrecursivo(B, false);
 		
+		Complex.printComplex(cmplxA);
+		Complex.printComplex(cmplxB);
+		
+		
 		//Multiplicar
+		System.out.println("\nMultiplicar");
 		cmplxC = fft.multiplicacao(cmplxA, cmplxB);
-
+		
+		Complex.printComplex(cmplxC);
+		
 		//Interpolar
+		System.out.println("\nInterpolar");
 		eqcC = fft.FFTinverso(cmplxC);
 
 		//Imprime resultado
+		System.out.println("\nImprime resultado");
 		for (int i = 0; i < eqcC.length; i++) {
 			System.out.print(eqcC[i] + ",");
 		}
