@@ -26,8 +26,8 @@ public class DoFFT {
 
 		//Duplicando o limite de grau
 		//Gerando numeros complexos
-		A = Complex.doubleToComplex(eqcA, eqcA.length * 2 - 1);
-		B = Complex.doubleToComplex(eqcB, eqcB.length * 2 - 1);
+		A = Complex.doubleToComplex(eqcA, eqcA.length * 2);
+		B = Complex.doubleToComplex(eqcB, eqcB.length * 2);
 		
 		System.out.println("\nArrays de Entrada");
 		Complex.printComplex(A);
