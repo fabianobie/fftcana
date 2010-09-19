@@ -1,36 +1,91 @@
 package br.ufc.cana.fft;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TimeZone;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import br.ufc.cana.fft.math.Complex;
 import br.ufc.cana.fft.math.FFT;
+import br.ufc.cana.fft.math.TimeFormatter;
 
 public class DoFFT {
+	
+	private static Logger logador = Logger.getLogger(DoFFT.class.getName());
 
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		
-		//Entradas
-		int[] A = geradorNumerosAleatorios(100,1000); //{ 1, 2 }; // 1 + 2x
-		int[] B = geradorNumerosAleatorios(100,1000);//{ 3, 5 }; // 3 + 5x
+		initLog();
 		
-		int[] C  = executeFFT(A, B);
+		 DateFormat df = new SimpleDateFormat("mm 'min,' ss 'sec,' ms 'ms'");
+	     df.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+	     long tInit, tEnd , tAll;
+	     
+	     for (int i = 0; i < 30; i++) {
+	    	
+	    	int[] A = geradorNumerosAleatorios(10,(int) Math.pow(2,i)); //{ 1, 2 }; // 1 + 2x
+	 		int[] B = geradorNumerosAleatorios(10,(int) Math.pow(2,i));//{ 3, 5 }; // 3 + 5x
+	 		int[] C; 
+	 		logador.info("\nI = " + i +  ">>>>>>>\n");
+	 		
+	 		
+	 		tInit = System.currentTimeMillis();
+	 			
+	 			C = DoMultiplicacaoN2.multiplicaN2(A, B);
+	 			
+	 		tEnd = System.currentTimeMillis();
+	 		tAll=tEnd - tInit;
+	 		logador.info("N2:"+tAll+" >>>> "+ df.format(new Date(tAll))+"\n");
+	 		
+	 		
+	 		tInit = System.currentTimeMillis();
+	 		
+	 			C = executeFFT(A, B);
+	 			
+	 		tEnd = System.currentTimeMillis();
+	 		tAll=tEnd - tInit;
+	 		logador.info("NlogN:"+tAll+" >>>> "+ df.format(new Date(tAll))+"\n");
+	     }
 		
-		geradorNumerosAleatorios(10, 100);
-
-		//Imprime resultado
-		System.out.println("\nImprime resultado");
-		for (int i = 0; i < C.length; i++) {
-			System.out.print(C[i] + ",");
-		}
 
 	}
 	
+	private static void print(int[] A){
+		String sinal;
+		for (int i = 0; i < A.length; i++) {
+			if(A[i]!=0){
+				sinal = (A[i] > 0) ? "+" : "";
+				System.out.print(sinal + A[i] + "x^" + i + " ");
+			}
+		}
+	}
 	
-    public static int[] geradorNumerosAleatorios(int range, int tamanho) {
+	
+    private static void initLog() {
+    	FileHandler fh;
+		try {
+			fh = new FileHandler("e:\\fft.log", true);
+			logador.addHandler(fh);
+			logador.setLevel(Level.INFO);
+			TimeFormatter formatter = new TimeFormatter();
+			fh.setFormatter(formatter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+	}
+
+
+	public static int[] geradorNumerosAleatorios(int range, int tamanho) {
 		if (tamanho <= 0) {
 			return null;
 		} else {
@@ -64,7 +119,7 @@ public class DoFFT {
 		A = Complex.doubleToComplex(eqcA, eqcA.length * 2);
 		B = Complex.doubleToComplex(eqcB, eqcB.length * 2);
 		
-		System.out.println("\nArrays de Entrada");
+		//System.out.println("\nArrays de Entrada");
 		//Complex.printComplex(A);
 		//Complex.printComplex(B);
 		
@@ -72,7 +127,7 @@ public class DoFFT {
 		FFT fft = new FFT();
 		
 		//Avaliar
-		System.out.println("\nAvaliar");
+		//System.out.println("\nAvaliar");
 		cmplxA = fft.FFTrecursivo(A, false);
 		cmplxB = fft.FFTrecursivo(B, false);
 		
@@ -81,13 +136,13 @@ public class DoFFT {
 		
 		
 		//Multiplicar
-		System.out.println("\nMultiplicar");
+		//System.out.println("\nMultiplicar");
 		cmplxC = fft.multiplicacao(cmplxA, cmplxB);
 		
 		//Complex.printComplex(cmplxC);
 		
 		//Interpolar
-		System.out.println("\nInterpolar");
+		//System.out.println("\nInterpolar");
 		resultado = fft.FFTinverso(cmplxC);
 		
 		return resultado;
