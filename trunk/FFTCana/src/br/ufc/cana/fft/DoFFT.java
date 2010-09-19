@@ -14,6 +14,12 @@ import br.ufc.cana.fft.math.Complex;
 import br.ufc.cana.fft.math.FFT;
 import br.ufc.cana.fft.math.TimeFormatter;
 
+/**
+ * Executa FFT e FB
+ * 
+ * @author Paulo
+ * @author Fabiano
+ */
 public class DoFFT {
 	
 	private static Logger logador = Logger.getLogger(DoFFT.class.getName());
