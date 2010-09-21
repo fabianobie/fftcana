@@ -30,19 +30,21 @@ public class DoFFT {
 	 */
 	public static void main(String[] args) {
 		
-		initLog();
+		//initLog();
 		
 		 DateFormat df = new SimpleDateFormat("mm 'min,' ss 'sec,' ms 'ms'");
 	     df.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 	     long tInit, tEnd , tAll;
+	     int i = 2;
 	     
-	     for (int i = 0; i < 30; i++) {
 	    	
 	    	int[] A = geradorNumerosAleatorios(10,(int) Math.pow(2,i)); //{ 1, 2 }; // 1 + 2x
-	 		int[] B = geradorNumerosAleatorios(10,(int) Math.pow(2,i));//{ 3, 5 }; // 3 + 5x
+	 		int[] B = geradorNumerosAleatorios(10,(int) Math.pow(2,i));//{ 3, 5 }; // 3 + 5x	 		
 	 		int[] C; 
-	 		logador.info("\nI = " + i +  ">>>>>>>\n");
+	 		System.out.print("A=");print(A);
+	 		System.out.print("B=");print(B);
 	 		
+	 		System.out.print("\nI = " + i +  "\n");
 	 		
 	 		tInit = System.currentTimeMillis();
 	 			
@@ -50,7 +52,8 @@ public class DoFFT {
 	 			
 	 		tEnd = System.currentTimeMillis();
 	 		tAll=tEnd - tInit;
-	 		logador.info("N2:"+tAll+" >>>> "+ df.format(new Date(tAll))+"\n");
+	 		print(C);
+	 		System.out.println("N2:"+tAll+" : "+ df.format(new Date(tAll))+"\n");
 	 		
 	 		
 	 		tInit = System.currentTimeMillis();
@@ -59,10 +62,8 @@ public class DoFFT {
 	 			
 	 		tEnd = System.currentTimeMillis();
 	 		tAll=tEnd - tInit;
-	 		logador.info("NlogN:"+tAll+" >>>> "+ df.format(new Date(tAll))+"\n");
-	     }
-		
-
+	 		print(C);
+	 		System.out.println("NlogN:"+tAll+": "+ df.format(new Date(tAll))+"\n");
 	}
 	
 	private static void print(int[] A){
@@ -73,6 +74,7 @@ public class DoFFT {
 				System.out.print(sinal + A[i] + "x^" + i + " ");
 			}
 		}
+		System.out.println("");
 	}
 	
 	
